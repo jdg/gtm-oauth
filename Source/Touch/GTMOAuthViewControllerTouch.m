@@ -411,7 +411,13 @@ finishedWithAuth:(GTMOAuthAuthentication *)auth
 - (IBAction)popView {
   NSLog(@"Popping view..");
 
-  [self.navigationController dismissModalViewControllerAnimated:YES];
+  if (![self.view isHidden]) {
+    isPoppingSelf_ = YES;
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.view setHidden:YES];
+    [self.navigationController.navigationBar setHidden:YES];
+    isPoppingSelf_ = NO;
+  }
 }
 
 - (void)cancelSigningIn {
