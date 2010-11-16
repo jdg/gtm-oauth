@@ -81,7 +81,6 @@ finishedWithAuth:(GTMOAuthAuthentication *)auth
          error:(NSError *)error;  
 - (BOOL)isNavigationBarTranslucent;
 - (void)moveWebViewFromUnderNavigationBar;
-- (void)popView;
 - (void)clearBrowserCookies;
 @end
 
@@ -395,6 +394,8 @@ finishedWithAuth:(GTMOAuthAuthentication *)auth
   } else {
     [self constructView];
   }
+  self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(popView)] autorelease];
+  self.navigationItem.rightBarButtonItem = nil;
 }
 
 
@@ -405,26 +406,12 @@ finishedWithAuth:(GTMOAuthAuthentication *)auth
   if ([html length] > 0) {
     [[self webView] loadHTMLString:html baseURL:nil];
   }
-
-  [rightBarButtonItem_ setCustomView:navButtonsView_];
-  [[self navigationItem] setRightBarButtonItem:rightBarButtonItem_];
 }
 
-- (void)popView {
-  if ([[self navigationController] topViewController] == self) {
-    if (![[self view] isHidden]) {
-      // set the flag to our viewWillDisappear method so it knows
-      // this is a disappearance initiated by the sign-in object,
-      // not the user cancelling via the navigation controller
-      isPoppingSelf_ = YES;
+- (IBAction)popView {
+  NSLog(@"Popping view..");
 
-      [[self navigationController] dismissModalViewControllerAnimated:YES];
-//      [[self navigationController] popViewControllerAnimated:YES];
-      [[self view] setHidden:YES];
-
-      isPoppingSelf_ = NO;
-    }
-  }
+  [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)cancelSigningIn {

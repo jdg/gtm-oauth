@@ -241,6 +241,8 @@ _EXTERN NSString* const kGTLOAuthKeychainErrorDomain       _INITIALIZE_AS(@"com.
 // subclasses may override authNibName to specify a custom name
 + (NSString *)authNibName;
 
+- (IBAction) popView;
+
 // If the nib is not found, this ViewwController calls this method to construct
 // the view.
 - (void)constructView;
