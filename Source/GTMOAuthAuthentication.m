@@ -478,6 +478,11 @@ static NSString *const kUserEmailIsVerifiedKey    = @"isVerified";
   if (verified) {
     [self setUserEmailIsVerified:verified];
   }
+
+  NSString *screenName = [dict objectForKey:@"screen_name"];
+  if (screenName) {
+    [self setIconURLString:screenName];
+  }
 }
 
 - (void)setKeysForResponseData:(NSData *)data {
