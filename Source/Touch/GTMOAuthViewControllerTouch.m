@@ -418,7 +418,8 @@ finishedWithAuth:(GTMOAuthAuthentication *)auth
       // not the user cancelling via the navigation controller
       isPoppingSelf_ = YES;
 
-      [[self navigationController] popViewControllerAnimated:YES];
+      [[self navigationController] dismissModalViewControllerAnimated:YES];
+//      [[self navigationController] popViewControllerAnimated:YES];
       [[self view] setHidden:YES];
 
       isPoppingSelf_ = NO;
